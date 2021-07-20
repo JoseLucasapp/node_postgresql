@@ -1,0 +1,21 @@
+version: "2"
+services: 
+    db: 
+        image: postgres
+        container_name: postgres
+        volumes: 
+            - ./:/code/api/database/data:/var/lib/postgresql
+        ports: 
+            - 5432:5432
+        restart: always
+    api:
+        build: .
+        container_name: api
+        restart: always
+        volumes: 
+            - ./:/code
+        ports: 
+            - 3333:3333
+        depends_on: 
+            - db
+        working_dir: /code
